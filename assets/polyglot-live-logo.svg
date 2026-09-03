@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title>Polyglot Live - Minimalist Voice Circle</title>
+  <defs>
+    <!-- Deep Cosmic Navy Background -->
+    <radialGradient id="bgGrad" cx="50%" cy="46%" r="80%">
+      <stop offset="0%" stop-color="#09283b" />
+      <stop offset="45%" stop-color="#041420" />
+      <stop offset="85%" stop-color="#02090e" />
+      <stop offset="100%" stop-color="#010406" />
+    </radialGradient>
+
+    <!-- Seamless Translation Gradient (White -> Cyan -> Turquoise) -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="30%" stop-color="#8affde" />
+      <stop offset="70%" stop-color="#00ffa3" />
+      <stop offset="100%" stop-color="#00a86b" />
+    </linearGradient>
+
+    <!-- Crystalline Diamond White Gradient -->
+    <linearGradient id="crystalWhite" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#c4fff0" />
+    </linearGradient>
+
+    <!-- Turquoise Neon Gradient -->
+    <linearGradient id="neonTurquoise" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00ffa3" />
+      <stop offset="100%" stop-color="#008a65" />
+    </linearGradient>
+
+    <!-- Outer Rim Bevel -->
+    <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3" />
+      <stop offset="35%" stop-color="#00ffa3" stop-opacity="0.2" />
+      <stop offset="75%" stop-color="#002b1f" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.06" />
+    </linearGradient>
+
+    <!-- Precision Glow & Drop Shadows -->
+    <filter id="bloomFilter" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur1" />
+      <feGaussianBlur in="SourceGraphic" stdDeviation="26" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000000" flood-opacity="0.75" />
+    </filter>
+  </defs>
+
+  <!-- 1. Background Container with Premium Radiused Frame & Bevel -->
+  <rect width="512" height="512" rx="124" fill="url(#bgGrad)" />
+  <rect width="508" height="508" x="2" y="2" rx="122" fill="none" stroke="url(#rimGrad)" stroke-width="2.5" />
+
+  <!-- 2. Ambient Internal Neon Aura -->
+  <circle cx="256" cy="256" r="130" fill="#00ffa3" opacity="0.15" filter="url(#bloomFilter)" />
+
+  <!-- 3. Main Composition -->
+  <g filter="url(#softShadow)">
+
+    <!-- Clean, Perfect Inner Circular Ring with Left-to-Right Translation Flow -->
+    <!-- Radius R=112 centered at (256, 256) with open dynamic air gaps -->
+    <circle cx="256" cy="256" r="112" 
+            fill="none" 
+            stroke="url(#ringGrad)" 
+            stroke-width="22" 
+            stroke-linecap="round" 
+            stroke-dasharray="520 80"
+            transform="rotate(-45 256 256)" />
+
+    <!-- 4. Central Symmetrical Acoustic Voice Equalizer (Centered at Y=256) -->
+    <!-- Bar 1 (Left Whisper - White) -->
+    <rect x="186" y="228" width="14" height="56" rx="7" fill="#ffffff" opacity="0.85" />
+
+    <!-- Bar 2 (Left Harmonic - Diamond Icy) -->
+    <rect x="215" y="200" width="16" height="112" rx="8" fill="url(#crystalWhite)" />
+
+    <!-- Bar 3 (Central Major Resonance Pillar - Pure White Luminescence) -->
+    <rect x="247" y="171" width="18" height="170" rx="9" fill="#ffffff" filter="url(#bloomFilter)" />
+
+    <!-- Bar 4 (Right Harmonic - Neon Turquoise) -->
+    <rect x="281" y="200" width="16" height="112" rx="8" fill="url(#neonTurquoise)" />
+
+    <!-- Bar 5 (Right Native Outflow - Emerald Turquoise) -->
+    <rect x="312" y="228" width="14" height="56" rx="7" fill="url(#neonTurquoise)" opacity="0.9" />
+
+  </g>
+</svg>
