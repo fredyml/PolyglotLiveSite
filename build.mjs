@@ -24,7 +24,7 @@ const softwareApplicationSchema = {
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Windows 10 version 1703 or later, Windows 11",
   description:
-    "Polyglot Live is a Windows audio application providing real-time, two-way voice translation for video calls, meetings, and desktop audio.",
+    "Polyglot Live is a Windows audio application providing real-time, two-way voice translation and synchronized live text transcripts for video calls, meetings, and desktop audio.",
   url: normalizedSiteUrl,
   author: {
     "@type": "Person",
@@ -75,6 +75,11 @@ const personSchema = {
 };
 
 const faqItems = [
+  {
+    question: "Does Polyglot Live provide live text translation or meeting transcripts?",
+    answer:
+      "Yes! Along with real-time spoken voice translation, Polyglot Live features an integrated Live Transcript panel. As speech occurs, it is transcribed and translated side-by-side in real-time dialogue bubbles. You can copy the full text to your clipboard with one click, or access local meeting transcript files saved on your PC with automatic 3-day privacy retention.",
+  },
   {
     question: "What does Polyglot Live do?",
     answer:
@@ -127,7 +132,7 @@ const replacements = {
   "__TAGLINE__": SITE_CONFIG.tagline,
   "__TITLE__": "Polyglot Live | Real-Time Two-Way Voice Translation for Windows",
   "__DESCRIPTION__":
-    "Speak in your language and communicate globally in real time during video calls and meetings on Windows. Created by Fredy Mendoza.",
+    "Speak in your language and communicate globally with real-time two-way voice translation and live text transcripts on Windows. Created by Fredy Mendoza.",
   "__CANONICAL_URL__": normalizedSiteUrl,
   "__SOCIAL_IMAGE_URL__": toAbsoluteUrl(SITE_CONFIG.socialImage),
   "__AUTHOR__": SITE_CONFIG.author,
