@@ -125,7 +125,12 @@ const faqSchema = {
   })),
 };
 
-const template = await readFile(path.join(currentDirectory, "index.template.html"), "utf8");
+const [template, privacyTemplate, termsTemplate] = await Promise.all([
+  readFile(path.join(currentDirectory, "index.template.html"), "utf8"),
+  readFile(path.join(currentDirectory, "privacy.template.html"), "utf8"),
+  readFile(path.join(currentDirectory, "terms.template.html"), "utf8"),
+]);
+
 const replacements = {
   "__LANG__": SITE_CONFIG.language,
   "__SITE_NAME__": SITE_CONFIG.siteName,
@@ -134,6 +139,8 @@ const replacements = {
   "__DESCRIPTION__":
     "Speak in your language and communicate globally with real-time two-way voice translation and live text transcripts on Windows. Created by Fredy Mendoza.",
   "__CANONICAL_URL__": normalizedSiteUrl,
+  "__PRIVACY_CANONICAL_URL__": toAbsoluteUrl("privacy.html"),
+  "__TERMS_CANONICAL_URL__": toAbsoluteUrl("terms.html"),
   "__SOCIAL_IMAGE_URL__": toAbsoluteUrl(SITE_CONFIG.socialImage),
   "__AUTHOR__": SITE_CONFIG.author,
   "__AUTHOR_URL__": SITE_CONFIG.authorProfileUrl,
@@ -146,14 +153,22 @@ const replacements = {
   "__FAQ_SCHEMA__": serializeJson(faqSchema),
 };
 
-const html = Object.entries(replacements).reduce(
-  (result, [placeholder, value]) => result.replaceAll(placeholder, value),
-  template,
-);
+function applyReplacements(source) {
+  return Object.entries(replacements).reduce(
+    (result, [placeholder, value]) => result.replaceAll(placeholder, value),
+    source,
+  );
+}
+
+const html = applyReplacements(template);
+const privacyHtml = applyReplacements(privacyTemplate);
+const termsHtml = applyReplacements(termsTemplate);
 
 await mkdir(assetsDirectory, { recursive: true });
 await Promise.all([
   writeFile(path.join(outputDirectory, "index.html"), html),
+  writeFile(path.join(outputDirectory, "privacy.html"), privacyHtml),
+  writeFile(path.join(outputDirectory, "terms.html"), termsHtml),
   copyFile(path.join(currentDirectory, "styles.css"), path.join(outputDirectory, "styles.css")),
   copyFile(path.join(currentDirectory, "main.js"), path.join(outputDirectory, "main.js")),
   copyFile(path.join(currentDirectory, "site.config.js"), path.join(outputDirectory, "site.config.js")),
@@ -180,7 +195,7 @@ await Promise.all([
   ),
   writeFile(
     path.join(outputDirectory, "sitemap.xml"),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${normalizedSiteUrl}</loc>\n  </url>\n</urlset>\n`,
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${normalizedSiteUrl}</loc>\n  </url>\n  <url>\n    <loc>${toAbsoluteUrl("privacy.html")}</loc>\n  </url>\n  <url>\n    <loc>${toAbsoluteUrl("terms.html")}</loc>\n  </url>\n</urlset>\n`,
   ),
 ]);
 
