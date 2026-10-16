@@ -164,11 +164,25 @@ const html = applyReplacements(template);
 const privacyHtml = applyReplacements(privacyTemplate);
 const termsHtml = applyReplacements(termsTemplate);
 
+const releasePageUrl = `${normalizedSiteUrl}#download`;
+const directInstallerUrl =
+  typeof SITE_CONFIG.installerUrl === "string" && /^https:\/\//i.test(SITE_CONFIG.installerUrl.trim())
+    ? SITE_CONFIG.installerUrl.trim()
+    : "";
+const versionManifest = {
+  latestVersion: SITE_CONFIG.latestVersion || "0.1.0",
+  downloadUrl: directInstallerUrl || releasePageUrl,
+  installerUrl: directInstallerUrl,
+  releasePageUrl,
+  publishedAt: new Date().toISOString().slice(0, 10),
+};
+
 await mkdir(assetsDirectory, { recursive: true });
 await Promise.all([
   writeFile(path.join(outputDirectory, "index.html"), html),
   writeFile(path.join(outputDirectory, "privacy.html"), privacyHtml),
   writeFile(path.join(outputDirectory, "terms.html"), termsHtml),
+  writeFile(path.join(outputDirectory, "version.json"), `${JSON.stringify(versionManifest, null, 2)}\n`),
   copyFile(path.join(currentDirectory, "styles.css"), path.join(outputDirectory, "styles.css")),
   copyFile(path.join(currentDirectory, "main.js"), path.join(outputDirectory, "main.js")),
   copyFile(path.join(currentDirectory, "site.config.js"), path.join(outputDirectory, "site.config.js")),
@@ -186,7 +200,7 @@ await Promise.all([
   ),
   copyFile(
     path.join(currentDirectory, "assets", "polyglot-live-interface.png"),
-    path.join(assetsDirectory, "polyglot-live-interface.png"),
+    path.join(assetsDirectory, "assets/polyglot-live-interface.png".replace(/^assets\//, "")),
   ),
   writeFile(path.join(outputDirectory, ".nojekyll"), ""),
   writeFile(

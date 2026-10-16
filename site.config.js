@@ -3,6 +3,7 @@
  * Developed by Fredy Mendoza.
  */
 
+export const LATEST_APP_VERSION = "0.1.0";
 export const WINDOWS_INSTALLER_URL = "";
 
 export const SITE_CONFIG = {
@@ -16,5 +17,6 @@ export const SITE_CONFIG = {
   contactUrl: "https://www.linkedin.com/in/fredy-mendoza-software-developer/",
   contactEmail: "fredyml2402@gmail.com",
   socialImage: "assets/polyglot-live-interface.png",
+  latestVersion: LATEST_APP_VERSION,
   installerUrl: WINDOWS_INSTALLER_URL,
 };
